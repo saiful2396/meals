@@ -7,13 +7,13 @@ class FiltersScreen extends StatefulWidget {
   final Map<String, bool> currentFilters;
   final Function saveFiltersData;
 
-  FiltersScreen(this.currentFilters, this.saveFiltersData,);
+  const FiltersScreen(this.currentFilters, this.saveFiltersData, {super.key});
 
   @override
-  _FiltersScreenState createState() => _FiltersScreenState();
+  FiltersScreenState createState() => FiltersScreenState();
 }
 
-class _FiltersScreenState extends State<FiltersScreen> {
+class FiltersScreenState extends State<FiltersScreen> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   bool _glutenFree = false;
   bool _lactoseFree = false;
@@ -21,30 +21,31 @@ class _FiltersScreenState extends State<FiltersScreen> {
   bool _vegetarian = false;
 
   Widget _buildSwitchListTile(
-    String title,
-    String description,
-    bool currentValue,
-    Function updateValue,
-  ) {
+      String title,
+      String description,
+      bool currentValue,
+      ValueChanged<bool> updateValue, // More specific type
+      ) {
     return SwitchListTile(
-      title: Text(title, style: Theme.of(context).textTheme.bodyText1),
+      title: Text(title, style: Theme.of(context).textTheme.bodyLarge),
       subtitle: Text(description),
       value: currentValue,
-      onChanged: updateValue,
+      onChanged: updateValue, // The function will be called with the new value (true/false)
     );
   }
 
   void _showToast(BuildContext context) {
-    final snackBar = SnackBar(content: Text('Saved'));
-    _scaffoldKey.currentState.showSnackBar(snackBar);
+    const snackBar = SnackBar(content: Text('Saved'));
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
+
 
   @override
   void initState() {
-    _glutenFree = widget.currentFilters['gluten'];
-    _lactoseFree = widget.currentFilters['lactose'];
-    _vegan = widget.currentFilters['vegan'];
-    _vegetarian = widget.currentFilters['vegetarian'];
+    _glutenFree = widget.currentFilters['gluten']!;
+    _lactoseFree = widget.currentFilters['lactose']!;
+    _vegan = widget.currentFilters['vegan']!;
+    _vegetarian = widget.currentFilters['vegetarian']!;
     super.initState();
   }
 
@@ -53,10 +54,10 @@ class _FiltersScreenState extends State<FiltersScreen> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        title: Text('Filters'),
+        title: const Text('Filters'),
         actions: [
           IconButton(
-            icon: Icon(Icons.save),
+            icon: const Icon(Icons.save),
             onPressed: () {
               final selectedFilters = {
                 'gluten': _glutenFree,
@@ -76,7 +77,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
             padding: const EdgeInsets.all(20),
             child: Text(
               'Adjust your meal selection',
-              style: Theme.of(context).textTheme.headline6,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
           ),
           Expanded(
@@ -135,7 +136,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
           ),
         ],
       ),
-      drawer: MainDrawer(),
+      drawer: const MainDrawer(),
     );
   }
 }

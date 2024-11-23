@@ -8,14 +8,14 @@ import '../models/meals.dart';
 class TabsScreen extends StatefulWidget {
   static const nameRoute = 'tabs_screen';
   final List<Meal> favoriteMeal;
-  TabsScreen(this.favoriteMeal);
+  const TabsScreen(this.favoriteMeal, {super.key});
 
   @override
-  _TabsScreenState createState() => _TabsScreenState();
+  TabsScreenState createState() => TabsScreenState();
 }
 
-class _TabsScreenState extends State<TabsScreen> {
-  List<Map<String, Object>> _pages;
+class TabsScreenState extends State<TabsScreen> {
+  late List<Map<String, Object>> _pages;
   int _selectedPageIndex = 0;
 
   void _selectPage(int index) {
@@ -27,7 +27,7 @@ class _TabsScreenState extends State<TabsScreen> {
   void initState() {
     _pages = [
       {
-        'page': CategoriesScreen(),
+        'page': const CategoriesScreen(),
         'title': 'Categories',
       },
       {
@@ -42,17 +42,17 @@ class _TabsScreenState extends State<TabsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(_pages[_selectedPageIndex]['title']),
+        title: Text('${_pages[_selectedPageIndex]['title']}'),
       ),
-      drawer: MainDrawer(),
-      body: _pages[_selectedPageIndex]['page'],
+      drawer: const MainDrawer(),
+      body: _pages[_selectedPageIndex]['page'] as Widget,
       bottomNavigationBar: BottomNavigationBar(
         onTap: _selectPage,
         backgroundColor: Theme.of(context).primaryColor,
         unselectedItemColor: Colors.white,
-        selectedItemColor: Theme.of(context).accentColor,
+        selectedItemColor: Theme.of(context).colorScheme.secondary,
         currentIndex: _selectedPageIndex,
-        items: [
+        items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.category),
             label: 'Category',

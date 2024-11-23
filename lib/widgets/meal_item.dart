@@ -12,27 +12,24 @@ class MealItem extends StatelessWidget {
   final Affordability affordability;
   //final Function removeItem;
 
-  MealItem({
-    @required this.id,
-    @required this.title,
-    @required this.imageUrl,
-    @required this.duration,
-    @required this.complexity,
-    @required this.affordability,
+  const MealItem({super.key,
+    required this.id,
+    required this.title,
+    required this.imageUrl,
+    required this.duration,
+    required this.complexity,
+    required this.affordability,
     //@required this.removeItem,
   });
 
   String get complexityText {
     switch (complexity) {
-      case Complexity.Simple:
+      case Complexity.simple:
         return 'Simple';
-        break;
-      case Complexity.Challenging:
+      case Complexity.challenging:
         return 'Challenging';
-        break;
-      case Complexity.Hard:
+      case Complexity.hard:
         return 'Hard';
-        break;
       default:
         return 'Unknown';
     }
@@ -40,15 +37,12 @@ class MealItem extends StatelessWidget {
 
   String get affordabilityText {
     switch (affordability) {
-      case Affordability.Affordable:
+      case Affordability.affordable:
         return 'Affordable';
-        break;
-      case Affordability.Pricey:
+      case Affordability.pricey:
         return 'Pricey';
-        break;
-      case Affordability.Luxurious:
+      case Affordability.luxurious:
         return 'Luxurious';
-        break;
       default:
         return 'Unknown';
     }
@@ -56,7 +50,7 @@ class MealItem extends StatelessWidget {
 
   void selectMeal(BuildContext ctx) {
     Navigator.of(ctx).pushNamed(
-      MealDetailsScreen.NameRoute,
+      MealDetailsScreen.nameRoute,
       arguments: id,
     ).then((result) {
       if(result != null){
@@ -80,7 +74,7 @@ class MealItem extends StatelessWidget {
             Stack(
               children: [
                 ClipRRect(
-                  borderRadius: BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(15),
                     topRight: Radius.circular(15),
                   ),
@@ -96,11 +90,11 @@ class MealItem extends StatelessWidget {
                   right: 0,
                   child: Container(
                     color: Colors.black54,
-                    padding: EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+                    padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
                     width: 350,
                     child: Text(
                       title,
-                      style: TextStyle(color: Colors.white, fontSize: 26),
+                      style: const TextStyle(color: Colors.white, fontSize: 26),
                       softWrap: true,
                       overflow: TextOverflow.fade,
                     ),
@@ -109,23 +103,23 @@ class MealItem extends StatelessWidget {
               ],
             ),
             Padding(
-              padding: EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Row(children: [
-                    Icon(Icons.schedule),
-                    SizedBox(width: 6),
+                    const Icon(Icons.schedule),
+                    const SizedBox(width: 6),
                     Text('$duration min'),
                   ]),
                   Row(children: [
-                    Icon(Icons.work),
-                    SizedBox(width: 6),
+                    const Icon(Icons.work),
+                    const SizedBox(width: 6),
                     Text(complexityText),
                   ]),
                   Row(children: [
-                    Icon(Icons.attach_money),
-                    SizedBox(width: 6),
+                    const Icon(Icons.attach_money),
+                    const SizedBox(width: 6),
                     Text(affordabilityText),
                   ]),
                 ],
